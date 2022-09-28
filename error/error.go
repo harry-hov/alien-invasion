@@ -1,7 +1,16 @@
 package error
 
-import "errors"
+import (
+	"errors"
+	"strings"
+)
 
 var (
-	InvalidFileName = errors.New("invalid filename")
+	ErrInvalidCity      = errors.New("invalid city")
+	ErrInvalidDirection = errors.New("invalid direction")
+	ErrInvalidFileName  = errors.New("invalid filename")
 )
+
+func Wrap(err error, description string) error {
+	return errors.New(strings.Join([]string{err.Error(), description}, " : "))
+}

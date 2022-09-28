@@ -2,8 +2,10 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	cmderror "github.com/harry-hov/alien-invasion/error"
+	"github.com/harry-hov/alien-invasion/worldmap"
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +17,20 @@ func CmdInvade() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			filename := args[0]
 			if filename == "" {
-				return cmderror.InvalidFileName
+				return cmderror.Wrap(cmderror.ErrInvalidFileName, "")
 			}
 
-			fmt.Println("Invaded")
+			fp, err := os.Open(filename)
+			if err != nil {
+				return err
+			}
+
+			worldMap, err := worldmap.InitWorldMap(fp)
+			if err != nil {
+				return err
+			}
+
+			fmt.Println(worldMap)
 
 			return nil
 		},
