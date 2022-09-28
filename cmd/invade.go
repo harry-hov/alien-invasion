@@ -1,9 +1,11 @@
 package cmd
 
 import (
+	"fmt"
 	"os"
 
 	cmderror "github.com/harry-hov/alien-invasion/error"
+	"github.com/harry-hov/alien-invasion/invasion"
 	"github.com/harry-hov/alien-invasion/worldmap"
 	"github.com/spf13/cobra"
 )
@@ -32,8 +34,8 @@ func CmdInvade() *cobra.Command {
 			if err != nil {
 				return err
 			}
-
-			worldMap.Print()
+			invasion := invasion.InitInvasion(worldMap, alienCount)
+			fmt.Println(invasion.GetWorldMap())
 
 			return nil
 		},

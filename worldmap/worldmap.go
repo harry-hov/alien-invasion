@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"math/rand"
 	"strings"
 
 	wmerror "github.com/harry-hov/alien-invasion/error"
@@ -154,4 +155,22 @@ func (wm *WorldMap) Print() {
 		out += "\n"
 	}
 	fmt.Print(out)
+}
+
+// GetCities returns the list of cities
+func (wm *WorldMap) GetCities() (cities []City) {
+	for city := range wm.cities {
+		cities = append(cities, city)
+	}
+	return
+}
+
+// UnleaseAliens unleases N aliens in the WorldMap
+func (wm *WorldMap) UnleaseNAliens(aliens uint) {
+	cities := wm.GetCities()
+	for i := uint(0); i < aliens; i++ {
+		random := rand.Intn(len(wm.cities))
+		name := Alien(fmt.Sprintf("alien-%v", i))
+		wm.aliens[name] = cities[random]
+	}
 }
