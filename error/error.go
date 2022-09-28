@@ -6,9 +6,10 @@ import (
 )
 
 var (
-	ErrInvalidCity      = errors.New("invalid city")
-	ErrInvalidDirection = errors.New("invalid direction")
-	ErrInvalidFileName  = errors.New("invalid filename")
+	ErrInvalidAlienCount = errors.New("invalid alien count")
+	ErrInvalidCity       = errors.New("invalid city")
+	ErrInvalidDirection  = errors.New("invalid direction")
+	ErrInvalidFileName   = errors.New("invalid filename")
 )
 
 func Wrap(err error, description string) error {

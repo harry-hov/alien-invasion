@@ -9,6 +9,7 @@ import (
 )
 
 func CmdInvade() *cobra.Command {
+	var alienCount uint
 	cmd := &cobra.Command{
 		Use:   "invade [world-file]",
 		Short: "Invade a World",
@@ -17,6 +18,9 @@ func CmdInvade() *cobra.Command {
 			filename := args[0]
 			if filename == "" {
 				return cmderror.Wrap(cmderror.ErrInvalidFileName, "")
+			}
+			if alienCount == 0 {
+				return cmderror.Wrap(cmderror.ErrInvalidAlienCount, "invalid value (0) for [-a | --aliens] flag")
 			}
 
 			fp, err := os.Open(filename)
@@ -34,6 +38,8 @@ func CmdInvade() *cobra.Command {
 			return nil
 		},
 	}
+
+	cmd.Flags().UintVarP(&alienCount, "aliens", "a", 0, "Alien Count")
 
 	return cmd
 }
