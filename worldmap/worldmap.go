@@ -142,3 +142,16 @@ func (wm *WorldMap) AppendCityDirection(city, directionCity City, direction Dire
 
 	return nil
 }
+
+// PrintWorldMap prints the world map in the same format as the input file.
+func (wm *WorldMap) Print() {
+	var out string
+	for city, directionEntry := range wm.cities {
+		out += fmt.Sprintf("%v:", city)
+		for direction, directionCity := range directionEntry {
+			out += fmt.Sprintf(" %v=%v", direction, directionCity)
+		}
+		out += "\n"
+	}
+	fmt.Print(out)
+}

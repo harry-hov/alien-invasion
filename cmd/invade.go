@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	cmderror "github.com/harry-hov/alien-invasion/error"
@@ -30,7 +29,7 @@ func CmdInvade() *cobra.Command {
 				return err
 			}
 
-			fmt.Println(worldMap)
+			worldMap.Print()
 
 			return nil
 		},
