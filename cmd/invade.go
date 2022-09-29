@@ -39,6 +39,7 @@ func CmdInvade() *cobra.Command {
 			// Invasion begins
 			for !invasion.IsFinished() {
 				invasion.MakeMove()
+				invasion.Fight()
 			}
 
 			// Print Results

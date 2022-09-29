@@ -235,3 +235,33 @@ func (wm *WorldMap) RandWalkAlien() {
 		}
 	}
 }
+
+func (wm *WorldMap) GetAliensByCity() map[City][]Alien {
+	aliensByCity := make(map[City][]Alien)
+	for alien, city := range wm.aliens {
+		if _, ok := aliensByCity[city]; !ok {
+			aliensByCity[city] = make([]Alien, 0)
+		}
+		aliensByCity[city] = append(aliensByCity[city], alien)
+	}
+	return aliensByCity
+}
+
+// DestroyCity removes the city from WorldMap
+func (wm *WorldMap) DestroyCity(c City) {
+	for direction, city := range wm.cities[c] {
+		oppositeDirection, err := direction.GetOpposite()
+		if err != nil {
+			panic(err)
+		}
+		delete(wm.cities[city], oppositeDirection)
+	}
+	delete(wm.cities, c)
+}
+
+// KillAliens removes the aliens from WorldMap
+func (wm *WorldMap) KillAliens(aliens []Alien) {
+	for _, alien := range aliens {
+		delete(wm.aliens, alien)
+	}
+}

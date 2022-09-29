@@ -3,6 +3,7 @@ package invasion
 import (
 	"fmt"
 
+	"github.com/harry-hov/alien-invasion/utils"
 	"github.com/harry-hov/alien-invasion/worldmap"
 )
 
@@ -69,4 +70,15 @@ func (i *Invasion) IsFinished() bool {
 	}
 
 	return i.finished
+}
+
+func (i *Invasion) Fight() {
+	for city, aliens := range i.worldMap.GetAliensByCity() {
+		if len(aliens) >= 2 {
+			i.worldMap.DestroyCity(city)
+			i.worldMap.KillAliens(aliens)
+
+			fmt.Println(fmt.Sprintf("%v has been destroyed by %v!", city, utils.PrettyJoinAliens(aliens)))
+		}
+	}
 }
