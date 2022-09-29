@@ -34,6 +34,12 @@ func CmdInvade() *cobra.Command {
 			if err != nil {
 				return err
 			}
+
+			// Check for empty WorldMap
+			if worldMap.GetCities() == nil {
+				return cmderror.Wrap(cmderror.ErrInvalidCity, "No cities to invade")
+			}
+
 			invasion := invasion.InitInvasion(worldMap, alienCount)
 
 			// Invasion begins
