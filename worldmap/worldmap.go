@@ -173,12 +173,26 @@ func (wm *WorldMap) GetCityDirections(c City) (directions []Direction) {
 	return
 }
 
-// GetAliens returns the list of aliens
-func (wm *WorldMap) GetAliens() (aliens []Alien) {
+// GetConnectedCities returns the list of connected cities
+// with the input city
+func (wm *WorldMap) GetConnectedCities(c City) (cities []City) {
+	for _, city := range wm.cities[c] {
+		cities = append(cities, city)
+	}
+	return
+}
+
+// GetAlienList returns the list of aliens
+func (wm *WorldMap) GetAlienList() (aliens []Alien) {
 	for alien := range wm.aliens {
 		aliens = append(aliens, alien)
 	}
 	return
+}
+
+// GetAliens returns the aliens from WorldMap
+func (wm *WorldMap) GetAliens() map[Alien]City {
+	return wm.aliens
 }
 
 // GetTrappedAliens returns the list of trapped aliens
@@ -208,5 +222,16 @@ func (wm *WorldMap) UnleaseNAliens(aliens uint) {
 		random := rand.Intn(len(wm.cities))
 		name := Alien(fmt.Sprintf("alien-%v", i))
 		wm.aliens[name] = cities[random]
+	}
+}
+
+// RandWalkAlien moves the alien to random connected city
+func (wm *WorldMap) RandWalkAlien() {
+	for alien, city := range wm.GetAliens() {
+		connectedCities := wm.GetConnectedCities(city)
+		if connectedCities != nil {
+			random := rand.Intn(len(connectedCities))
+			wm.aliens[alien] = connectedCities[random]
+		}
 	}
 }

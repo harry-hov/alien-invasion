@@ -39,6 +39,7 @@ func InitInvasion(worldMap *worldmap.WorldMap, aliens uint) *Invasion {
 }
 
 func (i *Invasion) MakeMove() {
+	i.worldMap.RandWalkAlien()
 	i.move++
 }
 
@@ -52,7 +53,7 @@ func (i *Invasion) IsFinished() bool {
 		i.conclusion = Conclusion("all cities destroyed")
 	}
 
-	aliens := i.worldMap.GetAliens()
+	aliens := i.worldMap.GetAlienList()
 	if aliens == nil {
 		i.finished = true
 		i.conclusion = Conclusion("all aliens died")
