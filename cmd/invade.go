@@ -35,7 +35,16 @@ func CmdInvade() *cobra.Command {
 				return err
 			}
 			invasion := invasion.InitInvasion(worldMap, alienCount)
-			fmt.Println(invasion.GetWorldMap())
+
+			// Invasion begins
+			for !invasion.IsFinished() {
+				invasion.MakeMove()
+			}
+
+			// Print Results
+			fmt.Println("Conclusion:", invasion.Conclusion())
+			fmt.Println("\nRemaining World:")
+			invasion.GetWorldMap().Print()
 
 			return nil
 		},

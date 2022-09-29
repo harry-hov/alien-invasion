@@ -165,6 +165,42 @@ func (wm *WorldMap) GetCities() (cities []City) {
 	return
 }
 
+// GetCities returns the list of cities
+func (wm *WorldMap) GetCityDirections(c City) (directions []Direction) {
+	for direction := range wm.cities[c] {
+		directions = append(directions, direction)
+	}
+	return
+}
+
+// GetAliens returns the list of aliens
+func (wm *WorldMap) GetAliens() (aliens []Alien) {
+	for alien := range wm.aliens {
+		aliens = append(aliens, alien)
+	}
+	return
+}
+
+// GetTrappedAliens returns the list of trapped aliens
+func (wm *WorldMap) GetTrappedAliens() (trappedAliens []Alien) {
+	for alien, city := range wm.aliens {
+		if direction := wm.GetCityDirections(city); direction == nil {
+			trappedAliens = append(trappedAliens, alien)
+		}
+	}
+	return
+}
+
+// GetTrappedAlienCount returns the count of trapped aliens
+func (wm *WorldMap) GetTrappedAlienCount() (trappedAliens uint) {
+	for _, city := range wm.aliens {
+		if direction := wm.GetCityDirections(city); direction == nil {
+			trappedAliens++
+		}
+	}
+	return
+}
+
 // UnleaseAliens unleases N aliens in the WorldMap
 func (wm *WorldMap) UnleaseNAliens(aliens uint) {
 	cities := wm.GetCities()
