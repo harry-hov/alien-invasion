@@ -30,6 +30,22 @@ func (i *Invasion) Conclusion() Conclusion {
 	return i.conclusion
 }
 
+func (i *Invasion) SetWorldMap(wm *worldmap.WorldMap) {
+	i.worldMap = wm
+}
+
+func (i *Invasion) SetMove(move int) {
+	i.move = move
+}
+
+func (i *Invasion) SetFinished(val bool) {
+	i.finished = val
+}
+
+func (i *Invasion) SetConclusion(c Conclusion) {
+	i.conclusion = c
+}
+
 func InitInvasion(worldMap *worldmap.WorldMap, aliens uint) *Invasion {
 	invasion := &Invasion{
 		worldMap: worldMap,
