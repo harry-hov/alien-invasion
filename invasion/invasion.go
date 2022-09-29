@@ -48,25 +48,30 @@ func (i *Invasion) IsFinished() bool {
 	if i.move >= maxMoves {
 		i.finished = true
 		i.conclusion = Conclusion("exceeds maximum moves")
+		return i.finished
 	}
 	if i.worldMap.GetCities() == nil {
 		i.finished = true
 		i.conclusion = Conclusion("all cities destroyed")
+		return i.finished
 	}
 
 	aliens := i.worldMap.GetAlienList()
 	if aliens == nil {
 		i.finished = true
 		i.conclusion = Conclusion("all aliens died")
+		return i.finished
 	}
 	if len(aliens) == 1 {
 		i.finished = true
 		i.conclusion = Conclusion(fmt.Sprintf("alien (%v) won", aliens[0]))
+		return i.finished
 	}
 
 	if trappedAliens := i.worldMap.GetTrappedAlienCount(); (uint(len(aliens)) - trappedAliens) == 0 {
 		i.finished = true
 		i.conclusion = Conclusion("all aliens trapped")
+		return i.finished
 	}
 
 	return i.finished
