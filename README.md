@@ -1,5 +1,7 @@
 # Alien Invasion
 
+![Build & Test](https://github.com/harry-hov/alien-invasion/actions/workflows/go.yml/badge.svg)
+
 Mad aliens are about to invade the earth and this program is to simulate the invasion.
 
 #### Usage
