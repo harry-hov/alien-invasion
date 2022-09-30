@@ -21,6 +21,7 @@ const (
 	West  = Direction("west")
 )
 
+// IsValid checks if direction is valid
 func (d Direction) IsValid() bool {
 	return d == East || d == North || d == South || d == West
 }
@@ -236,6 +237,7 @@ func (wm *WorldMap) RandWalkAlien() {
 	}
 }
 
+// GetAliensByCity returns aliens by city
 func (wm *WorldMap) GetAliensByCity() map[City][]Alien {
 	aliensByCity := make(map[City][]Alien)
 	for alien, city := range wm.aliens {
@@ -248,6 +250,7 @@ func (wm *WorldMap) GetAliensByCity() map[City][]Alien {
 }
 
 // DestroyCity removes the city from WorldMap
+// Also removes direction leading in or out
 func (wm *WorldMap) DestroyCity(c City) {
 	for direction, city := range wm.cities[c] {
 		oppositeDirection, err := direction.GetOpposite()
